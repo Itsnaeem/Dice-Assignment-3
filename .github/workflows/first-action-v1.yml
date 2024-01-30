@@ -23,4 +23,4 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/aws_vm.pem ubuntu@ec2-51-20-255-121.eu-north-1.compute.amazonaws.com "cd /home/ubuntu/Dice-Assignment-3 && docker-compose up -d"
+        ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa ubuntu@ec2-51-20-255-121.eu-north-1.compute.amazonaws.com "cd /home/ubuntu/Dice-Assignment-3 && docker-compose up -d"
