@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy to EC2 via SSH
 
 on:
   push:
@@ -13,15 +13,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
-
-    - name: Build and Run Docker Compose on EC2 using AWS SSM
+    - name: Set up SSH
       run: |
-            instance_id="i-0f21cdc18309c8f1d"  # Replace with your actual instance ID
-            echo "Instance ID: $instance_id"
-            aws ssm send-command --instance-ids "$instance_id" --document-name "AWS-RunShellScript" --parameters commands=["cd /home/ubuntu/Dice-Assignment-3","docker-compose up -d"]
+        mkdir -p $HOME/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
+        ssh-keyscan -t rsa 51.20.255.121 >> $HOME/.ssh/known_hosts
+        chmod 644 $HOME/.ssh/known_hosts
+
+    - name: Deploy to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa ubuntu@51.20.255.121 "cd /home/ubuntu/Dice-Assignment-3 && docker-compose up -d"
