@@ -1,9 +1,24 @@
-## this is my first gh-action file.
-name: hello-world
-on: push
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-    my-job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: my-step
-              run: echo "Hello World"
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.5
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
+
+    - name: Build and Run Docker Compose on EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no -l ${{ secrets.REMOTE_USER }} ${{ secrets.REMOTE_HOST }} \
+          "cd /home/ubuntu/Dice-Assignment-3 && docker-compose up -d"
