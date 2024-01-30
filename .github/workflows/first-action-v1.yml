@@ -15,15 +15,14 @@ jobs:
 
     - name: Set up SSH
       run: |
-                mkdir -p $HOME/.ssh
-                echo "$SSH_KEY" > $HOME/.ssh/id_rsa
-                echo "$SSH_KEY" > $HOME/.ssh/id_rsa.pub
-                chmod 600 $HOME/.ssh/id_rsa
-                chmod 644 $HOME/.ssh/id_rsa.pub
-                ssh-keyscan -t rsa ${{ secrets.REMOTE_HOST }} >> $HOME/.ssh/known_hosts
-                chmod 644 $HOME/.ssh/known_hosts
+        mkdir -p $HOME/.ssh
+        echo "$SSH_KEY" > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
+        echo "IdentityFile $HOME/.ssh/id_rsa" >> $HOME/.ssh/config
+        ssh-keyscan -t rsa ${{ secrets.REMOTE_HOST }} >> $HOME/.ssh/known_hosts
+        chmod 644 $HOME/.ssh/known_hosts
 
     - name: Build and Run Docker Compose on EC2
       run: |
-        ssh -o StrictHostKeyChecking=no -l ${{ secrets.REMOTE_USER }} ${{ secrets.REMOTE_HOST }} \
+        ssh -o StrictHostKeyChecking=no -F $HOME/.ssh/config -l ${{ secrets.REMOTE_USER }} ${{ secrets.REMOTE_HOST }} \
           "cd /home/ubuntu/Dice-Assignment-3 && docker-compose up -d"
