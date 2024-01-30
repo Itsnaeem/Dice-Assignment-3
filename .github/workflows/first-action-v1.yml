@@ -15,8 +15,8 @@ jobs:
 
     - name: Set up SSH
       run: |
-        echo "$SSH_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+        echo "$SSH_KEY" > ~/.ssh/id_rsa.pub
+        chmod 600 ~/.ssh/id_rsa.pub
         ssh-keyscan -t rsa ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
 
