@@ -23,4 +23,9 @@ jobs:
     - name: Build and Run Docker Compose on EC2 using AWS SSM
       run: |
         instance_id=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=Dice-AssignmentServer" --query "Reservations[].Instances[].InstanceId" --output text)
+        if [ -z "$instance_id" ]; then
+          echo "No instance found with the specified tag."
+          exit 1
+        fi
+        echo "Instance ID: $instance_id"
         aws ssm send-command --instance-ids "$instance_id" --document-name "AWS-RunShellScript" --parameters commands=["cd /home/ubuntu/Dice-Assignment-3","docker-compose up -d"]
