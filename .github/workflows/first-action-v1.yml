@@ -1,26 +1,31 @@
-name: Deploy to AWS EC2
-
 on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up SSH Key
-      run: |
-        mkdir -p $HOME/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
-        chmod 600 $HOME/.ssh/id_rsa
-        ssh-keyscan ec2-51-20-255-121.eu-north-1.compute.amazonaws.com >> $HOME/.ssh/known_hosts
-        chmod 644 $HOME/.ssh/known_hosts
-
-    - name: Deploy to EC2
-      run: |
-        ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa ubuntu@ec2-51-20-255-121.eu-north-1.compute.amazonaws.com "cd /home/ubuntu/Dice-Assignment-3 && docker-compose up -d"
+    push:
+      branches:
+        - master
+  
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      env:
+        VERSION: 1.0.0
+        PUBLICIP: 51.20.255.121
+        PROJECT_NAME: /home/ubuntu/Dice-Assignment-3
+        USERNAME: ubuntu
+        PORT: 22
+  
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+  
+        - name: Configure SSH
+          uses: webfactory/ssh-agent@v0.7.0
+          with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+  
+        - name: SSH into server and Pull branch
+          run: |
+            ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.PUBLICIP }} "cd ${{ env.PROJECT_NAME }} && git pull"
+  
+        - name: Run Docker Compose
+          run: |
+            ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.PUBLICIP }} "cd ${{ env.PROJECT_NAME }} && docker-compose down && docker-compose up -d --build"  
