@@ -16,8 +16,8 @@ jobs:
     - name: Set up SSH Key
       run: |
         mkdir -p $HOME/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/aws_vm.pem
-        chmod 600 $HOME/.ssh/aws_vm.pem
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
         ssh-keyscan ec2-51-20-255-121.eu-north-1.compute.amazonaws.com >> $HOME/.ssh/known_hosts
         chmod 644 $HOME/.ssh/known_hosts
 
