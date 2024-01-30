@@ -22,6 +22,6 @@ jobs:
 
     - name: Build and Run Docker Compose on EC2 using AWS SSM
       run: |
-      instance_id="i-0123456789abcdef0"  # Replace with your actual instance ID
-      echo "Instance ID: $instance_id"
-      aws ssm send-command --instance-ids "$instance_id" --document-name "AWS-RunShellScript" --parameters commands=["cd /home/ubuntu/Dice-Assignment-3","docker-compose up -d"]
+            instance_id="i-0123456789abcdef0"  # Replace with your actual instance ID
+            echo "Instance ID: $instance_id"
+            aws ssm send-command --instance-ids "$instance_id" --document-name "AWS-RunShellScript" --parameters commands=["cd /home/ubuntu/Dice-Assignment-3","docker-compose up -d"]
