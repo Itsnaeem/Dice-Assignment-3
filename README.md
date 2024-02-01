@@ -245,15 +245,27 @@ All the Jobs completed:
 
 ![image](https://github.com/Itsnaeem/Dice-Assignment-3/assets/46102040/375f98f1-0102-4585-bebc-bc16ea2f0344)
 
-Now I will change or add comment in any then check again.
+Now I will change or add comments in any then check again.
+
+![Screenshot from 2024-02-01 17-16-29](https://github.com/Itsnaeem/Dice-Assignment-3/assets/46102040/8444a38d-c3b0-46b6-9564-691d572c7bc2)
+
+![Screenshot from 2024-02-01 17-19-55](https://github.com/Itsnaeem/Dice-Assignment-3/assets/46102040/8dd046b0-e4fa-40e2-b082-0f7442da1ea5)
+
+The Job of Workflow is running.
+
+![Screenshot from 2024-02-01 17-20-21](https://github.com/Itsnaeem/Dice-Assignment-3/assets/46102040/beb36661-1360-4a90-aba3-346771b9c36d)
 
 
+![Screenshot from 2024-02-01 17-20-29](https://github.com/Itsnaeem/Dice-Assignment-3/assets/46102040/d0eb5f1e-5072-493f-943b-091959095057)
 
 
+![Screenshot from 2024-02-01 17-20-36](https://github.com/Itsnaeem/Dice-Assignment-3/assets/46102040/7f5b17f6-4f9f-4b03-8dfa-be3f4ca3eeed)
 
+& its also accessible in Browser using IP.
 
+![Screenshot from 2024-02-01 17-20-56](https://github.com/Itsnaeem/Dice-Assignment-3/assets/46102040/6aa47cdb-e9e1-4105-aeca-33d7c0aab805)
 
-
+#### END of Assignment 3
 
 
 
