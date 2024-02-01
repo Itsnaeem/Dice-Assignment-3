@@ -31,3 +31,5 @@ jobs:
           run: |
             ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.PUBLICIP }} "cd ${{ env.PROJECT_NAME }} && docker-compose down && docker-compose up -d --build"
 # addcomment
+
+## add comment again
