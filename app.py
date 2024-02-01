@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "Hello, World!"
+    return "Hello, World! This is the CICD using GitHub Actions" # added a line
 
 class TestApp(unittest.TestCase):
     def setUp(self):
